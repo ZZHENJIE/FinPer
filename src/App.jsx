@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
+import { FPFetch } from './fetch'
 import "./App.css";
 
 function App() {
@@ -7,14 +7,19 @@ function App() {
   const [stock, setStock] = useState("");
 
   async function greet() {
-    const screener_url = "https://elite.finviz.com/export.ashx?v=111&f=fa_div_pos,sec_technology&auth=badafdcf-0c37-4f48-a476-54b471df6c2c";
-    const stock_url = "https://api.finviz.com/api/quote.ashx?aftermarket=true&barsCount=291&dateTo=1724418000&events=true&financialAttachments=&instrument=stock&patterns=false&premarket=true&rev=1740088326885&ticker=WOK&timeframe=d";
+    const url_1 = "https://elite.finviz.com/export.ashx?v=111&f=fa_div_pos,sec_technology&auth=badafdcf-0c37-4f48-a476-54b471df6c2c";
+    const url_2 = "https://api.finviz.com/api/quote.ashx?aftermarket=true&barsCount=291&dateTo=1724418000&events=true&financialAttachments=&instrument=stock&patterns=false&premarket=true&rev=1740088326885&ticker=WOK&timeframe=d";
 
-    const cvs = await invoke("fetch", { url: screener_url });
-    const json = await invoke("fetch", { url: stock_url });
+    const cvs = await FPFetch(url_1, {
+      method: 'GET'
+    });
 
-    setScreener(cvs);
-    setStock(json);
+    const object = await FPFetch(url_2, {
+      method: 'GET'
+    });
+
+    setScreener(cvs.body);
+    setStock(object.body);
   }
 
   return (
