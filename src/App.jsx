@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FPFetch } from './fetch'
 import "./App.css";
+import { Button } from "@mui/material";
 
 function App() {
   const [screener, setScreener] = useState("");
@@ -24,9 +25,7 @@ function App() {
 
   return (
     <div className="container">
-      <button className="fetch-button" onClick={greet}>
-        Fetch Data
-      </button>
+      <Button variant="contained" onClick={greet}>Hello world</Button>
       <div className="textarea-container">
         <textarea className="data-textarea" value={stock} readOnly placeholder="Stock data will appear here..." />
         <textarea className="data-textarea" value={screener} readOnly placeholder="Screener data will appear here..." />
